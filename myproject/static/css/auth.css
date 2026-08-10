@@ -1,0 +1,231 @@
+/* ==========================================
+   Modern Core Reset & Inter Font Integration
+   ========================================== */
+@import url('https://googleapis.com');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Elegant luxury abstract mesh background */
+body {
+    background-color: #0f172a;
+    background-image: 
+        radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+        radial-gradient(at 50% 0%, hsla(225,39%,30%,0.3) 0, transparent 50%), 
+        radial-gradient(at 100% 0%, hsla(339,49%,30%,0.2) 0, transparent 50%),
+        radial-gradient(at 100% 100%, #1e293b 0, transparent 70%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+}
+
+/* ==========================================
+   Glassmorphism Form Card Layout
+   ========================================== */
+.auth-container {
+    width: 100%;
+    max-width: 440px;
+    perspective: 1000px;
+}
+
+.auth-card {
+    background: rgba(255, 255, 255, 0.98);
+    padding: 45px 35px;
+    border-radius: 20px;
+    box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+        0 20px 40px -10px rgba(15, 23, 42, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
+}
+
+.auth-card h2 {
+    color: #0f172a;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+
+/* Subtle subtitle indicator */
+.auth-card h2 + p:not(.auth-switch) {
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* ==========================================
+   Django Form Engine Rendering Target Blocks
+   ========================================== */
+.auth-card form p {
+    margin-bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.auth-card form label {
+    font-size: 13.5px;
+    color: #334155;
+    margin-bottom: 8px;
+    font-weight: 600;
+    letter-spacing: -0.1px;
+}
+
+/* Comprehensive coverage of Django native inputs */
+.auth-card form input[type="text"],
+.auth-card form input[type="email"],
+.auth-card form input[type="password"],
+.auth-card form input[type="number"],
+.auth-card form select,
+.auth-card form textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #0f172a;
+    background-color: #f8fafc;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+}
+
+/* Dynamic field interactive states */
+.auth-card form input:hover,
+.auth-card form select:hover {
+    border-color: #94a3b8;
+    background-color: #f1f5f9;
+}
+
+.auth-card form input:focus,
+.auth-card form select:focus {
+    border-color: #6366f1;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+}
+
+/* Beautiful custom rendering for inline checkboxes */
+.auth-card form input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #6366f1;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+/* Styling Django system fallback help text strings */
+.helptext {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+/* ==========================================
+   Error Stack Validation Rules
+   ========================================== */
+.errorlist {
+    list-style: none;
+    color: #dc2626;
+    font-size: 13.5px;
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-left: 4px solid #dc2626;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+/* ==========================================
+   Action Buttons & Navigation Triggers
+   ========================================== */
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background-color: #6366f1;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+
+.btn-submit:hover {
+    background-color: #4f46e5;
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-submit:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.2);
+}
+
+/* Footer context switcher adjustments */
+.auth-switch {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 14px;
+    color: #475569;
+    font-weight: 500;
+}
+
+.auth-switch a {
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 4px;
+    transition: color 0.15s ease;
+}
+
+.auth-switch a:hover {
+    color: #4f46e5;
+    text-decoration: underline;
+}
+
+/* Re-anchoring your custom user profile class inside the wrapper */
+.my-image {
+    width: 88px;
+    height: 88px;
+    display: block;
+    margin: 0 auto 20px auto;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-options {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.forgot-password {
+    font-size: 0.85rem;
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-password:hover {
+    color: #4338ca;
+    text-decoration: underline;
+}
+

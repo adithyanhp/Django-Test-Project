@@ -1,0 +1,32 @@
+{% extends 'myapp/base.html' %}
+{% block title %} Home{% endblock %}
+
+{% block extracss %}
+<style>
+    /* Modern styling for your exact HTML elements */
+    h2 {
+        font-family: system-ui, -apple-system, sans-serif;
+        font-size: 2.25rem;
+        font-weight: 800;
+        color: #111827;
+        letter-spacing: -0.025em;
+        margin-top: 40px;
+        margin-bottom: 16px;
+        line-height: 1.2;
+    }
+
+    p {
+        font-family: system-ui, -apple-system, sans-serif;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #4b5563;
+        max-width: 650px;
+        margin-bottom: 40px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <h2>Welcome to the Student Management System</h2>
+    <p>This is the home page of the Student Management System. Use the navigation links above to manage students and courses.</p>
+{% endblock %}

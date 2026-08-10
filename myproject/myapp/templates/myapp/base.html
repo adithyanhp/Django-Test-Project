@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Student Management System{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .nav-brand {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: start;
+        }
+        .navbar {
+            background-color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            padding: 10px 40px;
+            text-align: center;
+        }
+
+        .navbar-links a {
+            color: #fff;
+            margin-left: 25px;
+            font-size: 18px;
+            text-decoration: none;
+        }
+        .navbar-links a:hover {
+            color: #edb4b4;
+        }
+        .container {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
+    {% block extracss %}{% endblock %}
+</head>
+<body>
+  <nav class="navbar">   
+    <div class="nav-brand">Student Management System</div> 
+    <div class="navbar-links">  
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'studentlist' %}">Students</a>
+        <a href="{% url 'student_form' %}">Student Form</a>
+
+        <!-- UPDATED PART: Authentication Conditional Toggle -->
+        {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post" style="display: inline; margin-left: 25px;">
+                {% csrf_token %}
+                <button type="submit" style="background: none; border: none; color: #ff9494; font-size: 18px; font-family: inherit; cursor: pointer; padding: 0; transition: color 0.2s ease;">
+                    Logout ({{ user.username }})
+                </button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" style="color: #edb4b4; font-weight: bold;">Sign In</a>
+        {% endif %}
+    </div>
+
+   </nav> 
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <footer>
+        <p>&copy; 2024 Student Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

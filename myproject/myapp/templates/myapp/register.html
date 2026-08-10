@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<body>
+
+    <!-- REUSE THE STRUCTURE FOR REGISTER -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Create an Account</h2>
+            <p>Join us to start managing student dashboards</p>
+            
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn-submit">Register</button>
+            </form>
+            
+            <p class="auth-switch">Already have an account?<a href="{% url 'login' %}">Sign in here</a></p>
+        </div>
+    </div>
+
+</body>
+</html>

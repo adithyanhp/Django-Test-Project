@@ -1,0 +1,89 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Student Form{% endblock %}
+
+{% block extracss %}
+<style>
+    /* Centered layout container */
+    .form-container {
+        max-width: 500px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    /* Modern typography for standard Django paragraph forms */
+    .form-container p {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Label styling */
+    .form-container label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #333333;
+        margin-bottom: 6px;
+    }
+
+    /* Input fields styling */
+    .form-container input, 
+    .form-container textarea, 
+    .form-container select {
+        width: 100%;
+        padding: 10px 14px;
+        font-size: 0.95rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
+    }
+
+    /* Interactive focus state */
+    .form-container input:focus, 
+    .form-container textarea:focus, 
+    .form-container select:focus {
+        outline: none;
+        border-color: #4f46e5; /* Modern Indigo */
+        background-color: #ffffff;
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    }
+
+    /* Modern button styling */
+    .form-container button[type="submit"] {
+        width: 100%;
+        background-color: #4f46e5;
+        color: #ffffff;
+        padding: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .form-container button[type="submit"]:hover {
+        background-color: #4338ca;
+    }
+
+    .form-container button[type="submit"]:active {
+        transform: scale(0.98);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

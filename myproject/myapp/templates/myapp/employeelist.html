@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Data</title>
+</head>
+<body>
+    <table border="2">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Designation</th>
+            <th>Department</th>
+            <th>salary</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tbody>
+            {% for empd in employee_data %}
+            <tr>
+                
+                <td>{{empd.name}}</td>
+                <td>{{empd.age}}</td>
+                <td>{{empd.email}}</td>
+                <td>{{empd.designation}}</td>
+                <td>{{empd.department}}</td>
+                <td>{{empd.salary}}</td>
+                {% if empd.image %}
+                <td><img src="{{ empd.image.url }}" alt="Employee Image" width="100"></td>
+                {% else %}
+                <td>No Image</td>
+                {% endif %}
+                <td><a href="{% url 'employee_edit' id=empd.id %}">Edit</a></td>
+                <td><a href="{% url 'employee_delete' id=empd.id %}" onclick="return confirm('Are you sure you want to delete this Employee?');">Delete</a></td>
+               
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+     <a href="{% url 'employee_form' %}">Add Employee</a><br><br>
+</body>
+</html>

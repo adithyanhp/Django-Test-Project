@@ -1,0 +1,62 @@
+# ==============================================================================
+# Python & Django Environment
+# ==============================================================================
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+python-env/
+Include/
+Lib/
+Scripts/
+share/
+
+# Django local database
+db.sqlite3
+db.sqlite3-journal
+
+# Python bytecode caching
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+.pytest_cache/
+
+# ==============================================================================
+# Security & Environment Variables (NEVER upload secrets to GitHub)
+# ==============================================================================
+.env
+.secrets
+secrets.json
+*.env.local
+
+# ==============================================================================
+# Media & Static Files (Handled by cloud storage/deployment servers)
+# ==============================================================================
+/media/
+/staticfiles/
+static_root/
+
+# ==============================================================================
+# Operating System & IDE Files
+# ==============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Ehthumbs.db
+Desktop.ini
+
+# IDEs (VS Code, PyCharm)
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp

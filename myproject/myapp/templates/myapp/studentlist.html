@@ -1,0 +1,200 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block title %}Student List{% endblock %}
+
+{% block extracss %}
+<style>
+    /* Main wrapper container */
+    .table-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+        font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    /* Header action layout */
+    .table-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+    }
+
+    .table-header h2 {
+        margin: 0;
+        color: #111827;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    /* Modern action button */
+    .btn-add {
+        background-color: #4f46e5;
+        color: #ffffff;
+        padding: 10px 18px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background-color 0.2s;
+    }
+
+    .btn-add:hover {
+        background-color: #4338ca;
+    }
+
+    /* Responsive table card wrapper */
+    .table-responsive {
+        width: 100%;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+    }
+
+    /* Core table reset and styles */
+    .modern-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.95rem;
+    }
+
+    .modern-table th {
+        background-color: #f9fafb;
+        color: #4b5563;
+        font-weight: 600;
+        padding: 14px 20px;
+        border-bottom: 2px solid #e5e7eb;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+    }
+
+    .modern-table td {
+        padding: 16px 20px;
+        color: #374151;
+        border-bottom: 1px solid #e5e7eb;
+        vertical-align: middle;
+    }
+
+    /* Alternating row colors */
+    .modern-table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    /* Rounded avatar thumbnail image */
+    .student-img {
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #e5e7eb;
+    }
+
+    .no-img {
+        font-size: 0.85rem;
+        color: #9ca3af;
+        font-style: italic;
+    }
+
+    /* Modern inline course pill badges */
+    .course-badge {
+        display: inline-block;
+        background-color: #e0e7ff;
+        color: #4338ca;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin: 2px;
+    }
+
+    .no-courses {
+        color: #9ca3af;
+        font-size: 0.85rem;
+    }
+
+    /* Action Links (Edit / Delete buttons) */
+    .action-link {
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .edit-link {
+        color: #2563eb;
+    }
+
+    .edit-link:hover {
+        color: #1d4ed8;
+    }
+
+    .delete-link {
+        color: #dc2626;
+    }
+
+    .delete-link:hover {
+        color: #b91c1c;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="table-container">
+    
+    <div class="table-header">
+        <h2>Students Registry</h2>
+        <a href="{% url 'student_form' %}" class="btn-add">+ Add Student</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="modern-table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Email</th>
+                    <th>Teacher</th>
+                    <th>Courses</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stud in student_data %}
+                <tr>
+                    <!-- Image column placed first for visual balance -->
+                    <td>
+                        {% if stud.image %}
+                            <img src="{{ stud.image.url }}" alt="Student Image" class="student-img">
+                        {% else %}
+                            <span class="no-img">No Image</span>
+                        {% endif %}
+                    </td>
+                    <td><strong>{{ stud.name }}</strong></td>
+                    <td>{{ stud.age }}</td>
+                    <td>{{ stud.email }}</td>
+                    <td>{{ stud.teacher.name|default:"No Teacher Assigned" }}</td>
+                    
+                    <!-- Displaying Courses as Badges -->
+                    <td>
+                        {% for course in stud.courses.all %}
+                            <span class="course-badge">{{ course.name }}</span>
+                        {% empty %}
+                            <span class="no-courses">No Courses</span>
+                        {% endfor %}
+                    </td>
+                    
+                    <td><a href="{% url 'student_edit' id=stud.id %}" class="action-link edit-link">Edit</a></td>
+                    <td><a href="{% url 'student_delete' id=stud.id %}" onclick="return confirm('Are you sure you want to delete this student?');" class="action-link delete-link">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
