@@ -48,5 +48,8 @@ urlpatterns = [
         success_url='/login'  # Jumps back to login after you save your new password
     ), name='password_reset_confirm'),
 
+    path('student_api/', views.StudentList, name='student_api'),  # API endpoint for Student data
+    path('student_api/create/', views.StudentCreate, name='student_create'),  # API endpoint for creating a new Student
+
 ]
 
