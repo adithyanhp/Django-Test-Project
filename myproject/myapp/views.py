@@ -20,7 +20,7 @@ from django.contrib import messages
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import StudentSerializer
-
+from rest_framework import viewsets
 
 def RegisterView(request):
     if request.method == "POST":
@@ -108,6 +108,11 @@ def StudentCreate(request):
         return Response(serializer.data, status=201)  # Created
     return Response(serializer.errors, status=400)  # Bad Request
 
+
+# API ViewSet for Student all in one place instead of separate functions (GET, POST, PUT, DELETE)
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
 
 
 @login_required

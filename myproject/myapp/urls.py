@@ -15,10 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from myapp import views
 from myapp.forms import UserPasswordResetForm 
 from django.contrib.auth import views as auth_views 
+
+from rest_framework import routers
+from rest_framework.routers import DefaultRouter
+from myapp.views import StudentViewSet
+
+router = DefaultRouter()
+router.register('myapp', StudentViewSet, basename='student')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -48,8 +56,10 @@ urlpatterns = [
         success_url='/login'  # Jumps back to login after you save your new password
     ), name='password_reset_confirm'),
 
-    path('student_api/', views.StudentList, name='student_api'),  # API endpoint for Student data
-    path('student_api/create/', views.StudentCreate, name='student_create'),  # API endpoint for creating a new Student
+    # path('student_api/', views.StudentList, name='student_api'),  # API endpoint for Student data
+    # path('student_api/create/', views.StudentCreate, name='student_create'),  # API endpoint for creating a new Student
 
+    path('', include(router.urls)),  # Include the router URLs for the StudentViewSet
 ]
+
 
