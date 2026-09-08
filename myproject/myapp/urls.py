@@ -22,10 +22,11 @@ from django.contrib.auth import views as auth_views
 
 from rest_framework import routers
 from rest_framework.routers import DefaultRouter
-from myapp.views import StudentViewSet
+from myapp.views import StudentViewSet, TeacherViewSet
 
 router = DefaultRouter()
 router.register('myapp', StudentViewSet, basename='student')
+router.register('teacher', TeacherViewSet, basename='teacher')
 
 
 urlpatterns = [
@@ -60,6 +61,10 @@ urlpatterns = [
     # path('student_api/create/', views.StudentCreate, name='student_create'),  # API endpoint for creating a new Student
 
     path('', include(router.urls)),  # Include the router URLs for the StudentViewSet
+    # path('teacher/', views.TeacherViewSet.as_view({'get': 'list', 'post': 'create'}), name='teacher-list-create'),  #API endpoint for listing and creating Teacher data
+
+
+
 ]
 
 
