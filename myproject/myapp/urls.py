@@ -22,7 +22,8 @@ from django.contrib.auth import views as auth_views
 
 from rest_framework import routers
 from rest_framework.routers import DefaultRouter
-from myapp.views import StudentViewSet, TeacherViewSet
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from myapp.views import RegisterViewSet, StudentViewSet, TeacherViewSet
 
 router = DefaultRouter()
 router.register('myapp', StudentViewSet, basename='student')
@@ -60,11 +61,14 @@ urlpatterns = [
     # path('student_api/', views.StudentList, name='student_api'),  # API endpoint for Student data
     # path('student_api/create/', views.StudentCreate, name='student_create'),  # API endpoint for creating a new Student
 
-    path('', include(router.urls)),  # Include the router URLs for the StudentViewSet
+   
     # path('teacher/', views.TeacherViewSet.as_view({'get': 'list', 'post': 'create'}), name='teacher-list-create'),  #API endpoint for listing and creating Teacher data
 
+    path('reg/', RegisterViewSet.as_view(), name='register'),  # API endpoint for user registration
+    path('log/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # API endpoint for obtaining JWT token
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # API endpoint for refreshing JWT token
 
-
+     path('', include(router.urls)),  # Include the router URLs for the StudentViewSet
 ]
 
 

@@ -126,3 +126,12 @@ MEDIA_ROOT = BASE_DIR / "media"
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
+
+
+#it is used to configure the Django REST Framework (DRF) settings. In this case, it specifies the default authentication classes that will be used for API requests. The configuration indicates that the project is using JWT (JSON Web Token) authentication provided by the 'rest_framework_simplejwt' package.
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+

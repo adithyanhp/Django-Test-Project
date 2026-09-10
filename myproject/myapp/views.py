@@ -19,8 +19,10 @@ from django.utils.encoding import force_bytes
 from django.contrib import messages
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import StudentSerializer, TeacherSerializer
+from .serializers import StudentSerializer, TeacherSerializer, RegisterSerializer
 from rest_framework import viewsets
+from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import IsAuthenticated
 
 def RegisterView(request):
     if request.method == "POST":
@@ -60,6 +62,13 @@ def LogoutView(request):
         logout(request)
         return redirect('login')
     return redirect('home')
+
+
+#this is the new viewset for user registration using DRF
+class RegisterViewSet(CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterSerializer
+
 
 class AutomatedPasswordResetView(PasswordResetView):
     def form_valid(self, form):
@@ -113,7 +122,7 @@ def StudentView(request):
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-
+    permission_classes = [IsAuthenticated]  # Allow unrestricted access for testing; adjust as needed for production
 
 
 # API ViewSet for Teacher all in one place instead of separate functions (GET, POST, PUT, DELETE)
