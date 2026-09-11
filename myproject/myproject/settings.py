@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'myapp',
 ]
 
@@ -133,5 +135,22 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+
+    'DEFAULT_PAGINATION_CLASS':    #pagination class is used to control how API responses are paginated. In this case, it specifies that the project is using page number pagination, which means that API responses will be divided into pages, and clients can request specific pages of data.
+        'rest_framework.pagination.PageNumberPagination',
+
+    'PAGE_SIZE': 5,  # Number of items per page
+    
+
+    #filtering backend is used to enable filtering of API responses based on query parameters. In this case, it specifies that the project is using the Django Filter backend, which allows clients to filter API responses by specifying query parameters in the URL.
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
 }
 
+
+#token lifetime settings for JWT authentication. It defines how long the access and refresh tokens will be valid. In this case, the access token will expire after 30 minutes, and the refresh token will expire after 7 days. This configuration is used by the 'rest_framework_simplejwt' package to manage token expiration and renewal.
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}

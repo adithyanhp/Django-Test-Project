@@ -23,6 +23,8 @@ from .serializers import StudentSerializer, TeacherSerializer, RegisterSerialize
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
+import django_filters
 
 def RegisterView(request):
     if request.method == "POST":
@@ -118,11 +120,21 @@ def StudentView(request):
 #     return Response(serializer.errors, status=400)  # Bad Request
 
 
+class StudentFilter(django_filters.FilterSet):
+    min_age = django_filters.NumberFilter(field_name="age", lookup_expr='gte')
+    max_age = django_filters.NumberFilter(field_name="age", lookup_expr='lte')
+
+    class Meta:
+        model = Student
+        fields = [ 'min_age', 'max_age']
+
 # API ViewSet for Student all in one place instead of separate functions (GET, POST, PUT, DELETE)
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     permission_classes = [IsAuthenticated]  # Allow unrestricted access for testing; adjust as needed for production
+    filter_backends = [DjangoFilterBackend]  # Enable filtering
+    filterset_class = StudentFilter  # Use the custom filter class
 
 
 # API ViewSet for Teacher all in one place instead of separate functions (GET, POST, PUT, DELETE)
