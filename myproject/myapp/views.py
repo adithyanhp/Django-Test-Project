@@ -279,31 +279,7 @@ def Employee_Delete(request, id):
     return redirect('employeelist')
 
 
-
-# def EmailSendingView(request):
-#     if request.method == "POST":
-#         email = request.POST.get('email')
-#         name = request.POST.get('name')
-#         courses = request.POST.get('courses')
-
-#         # Indented inside the POST block so it only runs when data is submitted
-#         student = Student.objects.create(email=email, name=name, courses=courses)
-        
-#         html_body = render_to_string("email.html", {"student": student})
-#         email_message = EmailMultiAlternatives(
-#                 subject="Student Registration",
-#                 body=strip_tags(html_body),
-#                 from_email="techforthink@gmail.com",
-#                 to=[email],
-#         )
-#         email_message.attach_alternative(html_body, "text/html")   
-#         email_message.send()
-        
-#         # Success page after POST
-#         return render(request, 'myapp/success.html')
-
-#     # Default response for a GET request (loading the page initially)
-#     return render(request, 'myapp/sendmail.html') 
+#email sending function using django's EmailMultiAlternatives class to send HTML emails with attachments. It retrieves student data from a POST request, creates a Student object, renders an HTML email template, and sends the email to the student's email address. The function also handles file uploads (like images) and generates a PDF containing the student's details for download.
 
 def send_email(request):
 
@@ -345,6 +321,8 @@ def send_email(request):
 
     return render(request, "myapp/sendmail.html")
 
+
+#download pdf function to generate a PDF file containing student details and send it as a downloadable response to the client. It uses the ReportLab library to create the PDF document, drawing text onto the canvas and setting the appropriate headers for file download.
 
 def download_pdf(request, student_id):
 
