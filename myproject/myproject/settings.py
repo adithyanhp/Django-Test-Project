@@ -58,7 +58,7 @@ ROOT_URLCONF = 'myproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # Specify the path to your templates directory
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,7 +122,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",]
 
-MEDIA_URL = '/media/'
+#media files (user-uploaded content)
+MEDIA_URL = '/media/'           
 MEDIA_ROOT = BASE_DIR / "media"
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -154,3 +155,19 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
+
+
+
+#email settings for sending emails using Gmail's SMTP server. It specifies the email backend, host, port, and authentication credentials (email address and password). This configuration allows the Django application to send emails, such as account verification or password reset emails, using the specified Gmail account.
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = 'techforthink@gmail.com'
+EMAIL_HOST_PASSWORD = 'wiqe xbqs gkap gugl'
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+

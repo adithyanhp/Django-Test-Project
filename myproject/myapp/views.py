@@ -25,6 +25,11 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 import django_filters
+from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
 
 def RegisterView(request):
     if request.method == "POST":
@@ -147,7 +152,7 @@ class TeacherViewSet(viewsets.ModelViewSet):
 @login_required
 def Student_Form(request):
     if request.method == "POST":
-        form = StudentForm(request.POST, request.FILES)
+        form = StudentForm(request.POST, request.FILES) #post is for text data and multipart(FILES) is for sending images and files to the server
         if form.is_valid():
             # 1. Safely extract all variables from cleaned_data
             name = form.cleaned_data['name']
@@ -272,3 +277,113 @@ def Employee_Delete(request, id):
     employee = get_object_or_404(Employee, id=id)
     employee.delete()
     return redirect('employeelist')
+
+
+
+# def EmailSendingView(request):
+#     if request.method == "POST":
+#         email = request.POST.get('email')
+#         name = request.POST.get('name')
+#         courses = request.POST.get('courses')
+
+#         # Indented inside the POST block so it only runs when data is submitted
+#         student = Student.objects.create(email=email, name=name, courses=courses)
+        
+#         html_body = render_to_string("email.html", {"student": student})
+#         email_message = EmailMultiAlternatives(
+#                 subject="Student Registration",
+#                 body=strip_tags(html_body),
+#                 from_email="techforthink@gmail.com",
+#                 to=[email],
+#         )
+#         email_message.attach_alternative(html_body, "text/html")   
+#         email_message.send()
+        
+#         # Success page after POST
+#         return render(request, 'myapp/success.html')
+
+#     # Default response for a GET request (loading the page initially)
+#     return render(request, 'myapp/sendmail.html') 
+
+def send_email(request):
+
+    if request.method == "POST":
+        name = request.POST.get("name", "") #use get() to safely extract data from POST request, providing a default value if the key doesn't exist
+        age = int(request.POST.get("age", ""))
+        email = request.POST.get("email", "")
+
+        # request.FILES.get("image") is used to retrieve the uploaded file (in this case, an image) from the request. It checks if a file was uploaded with the key "image" in the form data. If a file was uploaded, it will return the file object; otherwise, it will return None. This allows you to handle file uploads in your Django view.
+
+        # pillow package is used to generate the PDF file. The canvas.Canvas class is used to create a new PDF document, and you can draw text, images, and other elements onto the PDF using various methods provided by the canvas object. In this case, it is used to create a simple PDF containing the student's details.
+        
+        # image = request.FILES.get("image")
+
+        student = Student.objects.create(
+            name=name,
+            age=age,
+            email=email,
+            # message=message,
+            
+            # image=image,
+        )
+
+        html_body = render_to_string("myapp/email.html", {"student": student})
+        email_message = EmailMultiAlternatives(
+            subject="Student Registration",
+            body=strip_tags(html_body),
+            from_email="techforthink@gmail.com",
+            to=[email],
+        )
+        email_message.attach_alternative(html_body, "text/html")
+        
+        
+        email_message.send()
+
+        return render(request, "myapp/success.html", {
+            "student": student,
+        })
+
+    return render(request, "myapp/sendmail.html")
+
+
+def download_pdf(request, student_id):
+
+    student = get_object_or_404(Student, id=student_id)
+
+    response = HttpResponse(
+        content_type='application/pdf'
+    )
+
+    response['Content-Disposition'] = (
+        f'attachment; filename="{student.name}_details.pdf"'
+    )
+
+    pdf = canvas.Canvas(response)
+
+    pdf.setTitle("Student Details")
+
+    pdf.drawString(200, 800, "STUDENT DETAILS")
+
+    pdf.drawString(
+        100, 750,
+        f"Name: {student.name}"
+    )
+
+    pdf.drawString(
+        100, 720,
+        f"Email: {student.email}"
+    )
+
+    # pdf.drawString(
+    #     100, 690,
+    #     f"Message: {student.message}"
+    # )
+
+    pdf.drawString(
+        100, 630,
+        "Thank you."
+    )
+
+    pdf.save()
+
+    return response

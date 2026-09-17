@@ -23,7 +23,7 @@ from django.contrib.auth import views as auth_views
 from rest_framework import routers
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from myapp.views import RegisterViewSet, StudentViewSet, TeacherViewSet
+from myapp.views import RegisterViewSet, StudentViewSet, TeacherViewSet, send_email
 
 router = DefaultRouter()
 router.register('myapp', StudentViewSet, basename='student')
@@ -68,7 +68,11 @@ urlpatterns = [
     path('log/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # API endpoint for obtaining JWT token
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # API endpoint for refreshing JWT token
 
-     path('', include(router.urls)),  # Include the router URLs for the StudentViewSet
+    path('', include(router.urls)),  # Include the router URLs for the StudentViewSet
+
+    path('student/', views.send_email, name='send_email'),  # API endpoint for sending email
+    path('student/<int:student_id>/download_pdf/', views.download_pdf, name='download_pdf'),  # API endpoint for downloading PDF
+    
 ]
 
 

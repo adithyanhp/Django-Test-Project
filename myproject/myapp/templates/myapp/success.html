@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Sent</title>
+</head>
+<body>
+
+    <h2>Email Sent Successfully!</h2>
+
+    <p>Hello {{ student.name }}</p>
+
+    <p>The email has been sent to the student.</p>
+
+    <a href="{% url 'download_pdf' student.id %}">Download PDF</a>
+
+
+</body>
+</html>

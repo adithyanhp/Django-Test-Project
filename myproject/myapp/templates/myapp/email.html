@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Template</title>
+</head>
+<body>
+    <h2>Student Registration Form</h2>
+    <p>Dear {{ student.name }},</p>
+    <p>Thank you for registering for the following courses:</p>
+    <ul>
+        {% for course in courses %}
+            <li>{{ student.courses.all|join:", " }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
