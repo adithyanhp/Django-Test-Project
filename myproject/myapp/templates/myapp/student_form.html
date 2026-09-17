@@ -80,7 +80,7 @@
 
 {% block content %}
 <div class="form-container">
-    <form method="post" enctype="multipart/form-data">      #sending files to the server ( post is for text data and multipart is for sending images and files to the server)
+    <form method="post" enctype="multipart/form-data">      #sending files to the server ( method post is for text data and multipart is for sending images and files to the server)
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>
